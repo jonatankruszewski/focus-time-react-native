@@ -1,19 +1,17 @@
-import React, {useState} from "react"
-import {View, Text, StyleSheet, FlatList} from "react-native" 
-import {colors} from "../utils/colors"
-import {fontSizes, spacing} from "../utils/sizes"
-import {TextInput} from "react-native-paper"
-import {RoundedButton } from "../components/RoundedButton"
+import React from "react"
+import { View, Text, StyleSheet, FlatList } from "react-native"
+import { colors } from "../utils/colors"
+import { fontSizes, spacing } from "../utils/sizes"
 
-export const FocusHistory = ({focusItems}) => {
+export const FocusHistory = ({ focusItems }) => {
   if (!focusItems || !focusItems.length) return <Text style={styles.title}>We haven't focused on anything yet!</Text>;
 
-  const renderItem = ({item})=> <Text style={styles.item}>- {item}</Text>
+  const renderItem = ({ item }) => <Text style={styles.item}>- {item}</Text>
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        Things we have focused on: 
+        Things we have focused on:
       </Text>
       <FlatList
         data={focusItems}
