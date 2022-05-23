@@ -18,18 +18,18 @@ const PATTERN = [
   1 * ONE_SECOND_IN_MS
 ]
 
-export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
+export const Timer = ({ focusSubject, onTimerEnd, clearSubject, minutes = 0.1 }) => {
   useKeepAwake();
   const [isStarted, setIsStarted] = useState(false);
   const [progress, setProgress] = useState(1);
-  const [minutes, setMinutes] = useState(0.1);
+  const [mins, setMins] = useState(minutes);
 
-  const onEnd = (cb) => {
+  const onEnd = () => {
     Vibration.vibrate(PATTERN)
     setIsStarted(false)
     setProgress(1)
-    cb(); //reset
-    onTimerEnd(focusSubject)
+    setMins(mins)
+    onTimerEnd(focusSubject);
   }
 
   return (
@@ -37,9 +37,9 @@ export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
       <View style={styles.countDown}>
         <Countdown
           minutes={minutes}
-          onEnd={onEnd}
           isPaused={!isStarted}
           onProgress={setProgress}
+          onEnd={onEnd}
         />
         <View style={{ paddingTop: spacing.xxl }}>
           <Text style={styles.title}> Focusing on: </Text>
@@ -59,7 +59,7 @@ export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
         }
       </View>
       <View style={styles.timingWrapper}>
-        <Timing onChangeTime={setMinutes} />
+        <Timing onChangeTime={setMins} />
       </View>
       <View style={styles.timingWrapper}>
         <RoundedButton title="-" size={50} onPress={clearSubject} />
@@ -79,11 +79,10 @@ const styles = StyleSheet.create({
   },
   timingWrapper: {
     flexDirection: "row",
-    border: "1px solid yellow",
     justifyContent: "center",
     alignItems: "center",
     flex: 0.1,
-    paddinTop: spacing.xxl,
+    paddingTop: spacing.xxl,
   },
 
   buttonWrapper: {

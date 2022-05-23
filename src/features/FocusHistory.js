@@ -14,6 +14,7 @@ export const FocusHistory = ({ focusItems }) => {
         Things we have focused on:
       </Text>
       <FlatList
+        keyExtractor={(item, index) => `${index.toString()}_${item}`}
         data={focusItems}
         renderItem={renderItem}
       />
