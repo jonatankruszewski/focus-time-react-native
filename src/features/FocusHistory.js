@@ -4,9 +4,16 @@ import { colors } from "../utils/colors"
 import { fontSizes, spacing } from "../utils/sizes"
 
 export const FocusHistory = ({ focusItems }) => {
-  if (!focusItems || !focusItems.length) return <Text style={styles.title}>We haven't focused on anything yet!</Text>;
+  if (!focusItems || !focusItems.length) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>We haven't focused on anything yet!</Text>
+      </View>
+    );
+  }
 
   const renderItem = ({ item }) => <Text style={styles.item}>- {item}</Text>
+
 
   return (
     <View style={styles.container}>
